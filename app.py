@@ -150,7 +150,7 @@ def checkout():
     selected_products = request.form.getlist('products[]')
 
 
-    # Product list (should ideally be reused from a shared config)
+    # Product list 
     products = {
     1: {"name": "Clay Pot", "price": 150, "unit": "per pot"},
     2: {"name": "Plastic Pot", "price": 30, "unit": "per pot"},
@@ -328,7 +328,7 @@ User profile:
         )
 
 
-        # ✅ Adjust this based on actual response object
+
         raw_suggestions = response.text.strip()
 
         if not raw_suggestions:
