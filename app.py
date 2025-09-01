@@ -5,6 +5,7 @@ import ollama
 import re
 import stripe
 import json
+import cohere
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', 'test.env'))
 from urllib.parse import urlparse
@@ -27,6 +28,8 @@ app = Flask(__name__)
 secret_key = "FLWSECK_TEST-75c66817fd1daa44adeca38a34102f55-X"
 app.secret_key = "a3f5b17a92e74c45d2e1f2f5c88b3d7a"
 DATABASE_URL = os.environ.get("DATABASE_URL")
+cohere_api_key = os.environ.get("cohere")
+client = cohere.Client(cohere_api_key)
 
 # Database connection config
 url = urlparse(DATABASE_URL)
@@ -244,17 +247,21 @@ def payment_callback():
             conn = mysql.connector.connect(**db_config)
             cursor = conn.cursor()
 
+            cursor.execute("""
+                INSERT INTO orders (name, phone, email, tx_ref, total_amount)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (name, phone, email, tx_ref, total_amount))
+            order_id = cursor.lastrowid
+
+            
+
             for item in cart:
                 cursor.execute("""
-                    INSERT INTO orders 
-                    (name, phone, email, product_name, quantity, price, total_amount, tx_ref)
-                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                """, (
-                    name, phone, email, 
-                    item["name"], item["quantity"], item["price"],
-                    total_amount, tx_ref
-                ))
-
+                    INSERT INTO order_items (order_id, product_name, quantity, price, subtotal) 
+                    VALUES (%s, %s, %s, %s, %s)
+                """, (order_id, item['name'], item['quantity'], item['price'], item['price']*item['quantity']))
+            
+                
             conn.commit()
             cursor.close()
             conn.close()
@@ -268,7 +275,6 @@ def payment_callback():
         return render_template("payment_failed.html")
 
         
-
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -287,14 +293,12 @@ def submit():
         # Save to database
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
-
         query = """
             INSERT INTO plants_data 
             (phone, name, email, balcony_type, sunlight, balconySize, water, soil, season)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         values = (phone, name, email, balcony_type, sunlight, balcony_size, water, soil, season)
-
         cursor.execute(query, values)
         conn.commit()
         cursor.close()
@@ -311,39 +315,33 @@ def submit():
         Current season: {season}
         """
 
- # ✅ Ollama request
-        response = ollama.chat(
-             model="gemma:2b", 
-            messages=[
-                {"role": "system", "content":
-                 "You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions. "
-                 "For each suggested plant include:\n"
-                 "1. Materials needed (pots, buckets, soil, etc.)\n"
-                 "2. How to plant it\n"
-                 "3. How to care for it (watering, sunlight, pruning, fertilizer, manure)\n"
-                 "4. How long until harvest\n"
-                 "Format output clearly with ###plant name as headings example ###tomatoes and use emojis for clarity."},
-                {"role": "user", "content": user_profile}
-            ]
+        # ✅ Cohere request
+        prompt = f"""
+You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions.
+For each suggested plant include:
+1. Materials needed (pots, buckets, soil, etc.)
+2. How to plant it
+3. How to care for it (watering, sunlight, pruning, fertilizer, manure)
+4. How long until harvest
+Format output clearly with ###plant name as headings example ###tomatoes and use emojis for clarity.
+
+User profile:
+{user_profile}
+"""
+        response = client.generate(
+            model='xlarge',       # or 'medium', 'small' depending on your plan
+            prompt=prompt,
+            max_tokens=500,
+            temperature=0.7
         )
-         
-        
 
-        raw_suggestions = response["message"]["content"].strip()
-
+        raw_suggestions = response.text.strip()
         if not raw_suggestions:
             raw_suggestions = "No suggestions were generated. Please try again."
 
-        # ✅ Always return the template
+        # Format and return template
         suggestions = format_suggestions_for_template(raw_suggestions)
         return render_template("suggestion.html", name=name, suggestions=suggestions)
 
     except Exception as e:
         return f"❌ Error: {str(e)}"
-    
-    
-    
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
