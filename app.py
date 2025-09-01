@@ -313,15 +313,18 @@ Soil type: {soil}
 Current season: {season}
 """
 
-        # ✅ Cohere Chat API request
-        messages = [
-            {"role": "system", "content": "You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions. Include materials needed, planting instructions, care instructions, and harvest time. Format output clearly with ###plant name as headings and use emojis."},
-            {"role": "user", "content": user_profile}
-        ]
+        prompt = f"""
+            You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions.
+            Include materials needed, planting instructions, care instructions, and harvest time.
+            Format output clearly with ###plant name as headings and use emojis.
+
+User profile:
+{user_profile}
+"""
 
         response = client.chat(
             model="command-a-03-2025",
-            messages=messages,
+            messages=prompt,
             temperature=0.7
         )
 
