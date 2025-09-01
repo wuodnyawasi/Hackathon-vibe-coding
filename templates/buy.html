@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy From Us - Balcony2Farm 🌱</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Skip to Content for screen readers -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Navigation Bar -->
+  <nav aria-label="Main Navigation">
+    <div class="logo">🌱 <span>Balcony2Farm</span></div>
+    <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false">☰</button>
+    <ul id="nav-links" class="nav-links">
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('register') }}">Start My Balcony Farm</a></li>
+      <li><a href="{{ url_for('buy') }}" aria-current="page">Buy From Us</a></li>
+      <li><a href="{{ url_for('guides') }}">Guides</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" role="banner">
+    <h1>🛒 Buy From Us</h1>
+    <p>Get pots, seeds, seedlings, manure, and the best soils to start your balcony farm.</p>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Cart Feedback -->
+    <div id="cart-feedback" class="sr-only" aria-live="polite"></div>
+
+    <form action="{{ url_for('checkout') }}" method="POST" aria-label="Product selection form">
+      
+      {% for category, items in products.items() %}
+      <section aria-labelledby="{{ category }}-heading">
+        <h2 id="{{ category }}-heading">{{ category|capitalize }}</h2>
+        <div class="product-grid">
+          {% for item in items %}
+          <article class="card">
+            <img src="{{ url_for('static', filename='images/' ~ item.img) }}" 
+                 alt="{{ item.name }}" class="product-img">
+            <div class="card-content">
+              <h3>{{ item.name }}</h3>
+              <p class="price">KSh {{ item.price }} <span class="unit">{{ item.unit }}</span></p>
+
+                     <!-- Product selection -->
+              <label>
+                <input type="checkbox" name="products[]" value="{{ item.id }}">
+                Select
+              </label>
+
+              <!--  Quantity Input -->
+              <label>
+                Quantity:
+                <input type="number" name="quantity_{{ item.id }}" min="1" value="1">
+              </label>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endfor %}
+
+      <div class="form-actions">
+               <!-- Customer Info -->
+          <fieldset>
+            <legend>Your Details</legend>
+  
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+    
+    <button type="submit">Submit</button>
+  </fieldset>
+        <button type="submit" class="buy-btn" disabled>Buy Selected Products</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Balcony2Farm | Hackathon Project 🌱</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    // Enable Buy button only if at least one product is selected
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name="products[]"]');
+    const buyBtn = document.querySelector('.buy-btn');
+    const feedback = document.getElementById('cart-feedback');
+
+    checkboxes.forEach(cb => cb.addEventListener('change', () => {
+      const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+      buyBtn.disabled = !anyChecked;
+
+      //  show feedback message
+      if(anyChecked) {
+        feedback.textContent = `${Array.from(checkboxes).filter(cb => cb.checked).length} product(s) selected`;
+        feedback.classList.remove('sr-only');
+      } else {
+        feedback.textContent = '';
+        feedback.classList.add('sr-only');
+      }
+    }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balcony2Farm 🌱</title>
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Skip to Content for screen readers -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+ <!-- Navigation Bar -->
+<nav aria-label="Main Navigation">
+  <div class="logo">🌱 <span>Balcony2Farm</span></div>
+  <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false">☰</button>
+  <ul id="nav-links" class="nav-links">
+    <li><a href="{{ url_for('home') }}" aria-current="page">Home</a></li>
+    <li><a href="{{ url_for('register') }}">Start My Balcony Farm</a></li>
+    <li><a href="{{ url_for('buy') }}">Buy from us</a></li>
+    <li><a href="{{ url_for('guides') }}">Guides</a></li>
+  </ul>
+</nav>
+
+
+  <!-- Hero Section -->
+  <header class="hero" role="banner">
+    <h1>Welcome to Balcony2Farm 🌿</h1>
+    <p>
+      Turn your balcony, rooftop, or backyard into a mini-farm.  
+      Grow fresh food, live sustainably, and make cities greener.
+    </p>
+    <div class="hero-buttons">
+      <a href="{{ url_for('register') }}" class="btn primary">Start My Balcony Farm</a>
+      <a href="{{ url_for('guides') }}" class="btn secondary">Read Guides</a>
+      <a href="{{ url_for('buy') }}" class="btn secondary">Buy from us</a>
+    </div>
+    </header>
+
+  <!-- Impact Section -->
+  <main id="main-content">
+    <section class="impact">
+      <h2>Why Balcony2Farm?</h2>
+      <ul>
+        <li>🌍 Supports <b>Zero Hunger (SDG 2)</b> by encouraging small-scale food production.</li>
+        <li>🏙️ Promotes <b>Sustainable Cities (SDG 11)</b> with greener, healthier communities.</li>
+        <li>🌱 Empowers you to grow your own herbs, vegetables, and fruits—no matter the space.</li>
+        <li>🌱 Empowers you to grow your own herbs, vegetables, and fruits—no matter the space.</li>      </ul>
+    </section>
+
+    <!-- About Us Section -->
+<section class="about">
+  <h2>About Us</h2>
+  <p>
+    I’m an individual committed to going green, eliminating dependence on GMOs, and inspiring others to grow their own food—right from their balconies, rooftops, and small urban spaces. 
+  </p>
+  <p>
+    Balcony2Farm is my personal mission to make homegrown vegetables a reality for every household. I believe in the power of balcony and rooftop gardening not just as a lifestyle, but as a movement to alleviate urban hunger and reduce our carbon footprint.
+  </p>
+  <p>
+    Every pot of spinach, tomato, or basil grown at home is a step toward food independence, healthier living, and a greener planet.
+  </p>
+  <ul>
+    <li>🥬 Say goodbye to pesticide-laden, GMO-packed produce.</li>
+    <li>🏡 Transform underused urban spaces into thriving green patches.</li>
+    <li>🍅 Empower communities with the tools to fight hunger from their own homes.</li>
+    <li>🌎 Join a grassroots movement that promotes local food, sustainability, and eco-justice.</li>
+    <li>🌻 Because every plant grown at home is one less burden on the planet.</li>
+  </ul>
+</section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Balcony2Farm | Hackathon Project 🌱</p>
+  </footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

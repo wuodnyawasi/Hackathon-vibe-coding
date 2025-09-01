@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start My Balcony Farm</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav aria-label="Main Navigation">
+    <div class="logo">🌱 <span>Balcony2Farm</span></div>
+    <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false">☰</button>
+    <ul id="nav-links" class="nav-links">
+       <li><a href="{{ url_for('home') }}" aria-current="page">Home</a></li>
+    <li><a href="{{ url_for('register') }}">Start My Balcony Farm</a></li>
+    <li><a href="{{ url_for('buy') }}">Buy from us</a></li>
+    <li><a href="{{ url_for('guides') }}">Guides</a></li>
+  </ul>
+  </nav>
+
+  <main class="form-container">
+    <h1>🌿 Tell Us About Your Balcony</h1>
+    <p>Fill in the details below so we can suggest the best plants for you.</p>
+
+    <form action="{{ url_for('submit') }}" method="POST" class="balcony-form">
+  <!-- User Info Section -->
+  <label for="name">Full Name:</label>
+  <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+<label for="phone">Phone Number:</label>
+<input type="tel" id="phone" name="phone" 
+       placeholder="0700000000" required 
+       pattern="07[0-9]{8}" />
+
+  <label for="email">Email Address:</label>
+  <input type="email" id="email" name="email" placeholder="e.g. example@mail.com" required />
+
+  <!-- other Form Fields -->
+  <label for="balcony-type">Type of space:</label>
+  <select id="balcony-type" name="balcony-type" required>
+    <option value="">--Select--</option>
+    <option value="openRoof">Open roof top</option>
+    <option value="coveredRoof">Covered roof top</option>
+    <option value="open">Open balcony</option>
+    <option value="covered">Covered balcony</option>
+    <option value="partial">Partially Covered balcony</option>
+  </select>
+
+  <label for="sunlight">Daily Sunlight Hours:</label>
+  <input type="number" id="sunlight" name="sunlight" min="0" max="12" placeholder="e.g. 5" required />
+
+  <label for="size">Balcony Size (sq. meters):</label>
+  <input type="number" id="balconySize" name="balconySize" placeholder="e.g. 10" required />
+
+  <label for="water">Is Water Easily Available?</label>
+  <select id="water" name="water" required>
+    <option value="">--Select--</option>
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+
+  <label for="soil">What type of soil are you having?</label>
+  <select id="soil" name="soil" required>
+    <option value="">--Select--</option>
+    <option value="Loam">Loam soil</option>
+    <option value="Clay">Clay</option>
+  </select>
+
+  <label for="season">What is the current season?</label>
+  <select id="season" name="season" required>
+    <option value="">--Select--</option>
+    <option value="rainy">Rainy season</option>
+    <option value="sunny">Sunny season</option>
+    <option value="cold">Cold season</option>
+  </select>
+
+  <button type="submit" class="btn">Get Plant Suggestions</button>
+</form>
+
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Balcony2Farm. Grow Smart 🌿</p>
+  </footer>
+</body>
+</html>

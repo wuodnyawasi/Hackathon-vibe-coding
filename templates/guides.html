@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planting Guides - Balcony2Farm</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   <!-- Navigation Bar -->
+  <nav aria-label="Main Navigation">
+    <div class="logo">🌱 <span>Balcony2Farm</span></div>
+    <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false">☰</button>
+    <ul id="nav-links" class="nav-links">
+       <li><a href="{{ url_for('home') }}" aria-current="page">Home</a></li>
+    <li><a href="{{ url_for('register') }}">Start My Balcony Farm</a></li>
+    <li><a href="{{ url_for('buy') }}">Buy from us</a></li>
+    <li><a href="{{ url_for('guides') }}">Guides</a></li>
+  </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <h1>🌿 Planting Guides</h1>
+    <p>Learn how to grow your favorite plants on your balcony. Select a plant below to get started!</p>
+
+    <section class="guides-grid">
+      <!-- Tomato -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/tomatoes.jpg') }}" alt="tomatoes">
+        <h2>Tomatoes</h2>
+        <p>Tomatoes are a versatile and productive plant that thrives in sunny balcony and rooftop gardens, offering a bountiful harvest of juicy, flavorful fruit..</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>To grow tomatoes, start with seedlings in pots at least 12 inches deep and wide, using a well-draining potting mix enriched with composted manure or other organic matter. They need a minimum of six to eight hours of direct sunlight daily. Water consistently, keeping the soil moist but not waterlogged, and use a tomato cage or stakes to support the plant. Mix more manure into the soil every four weeks to provide a continuous supply of nutrients.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Kales -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/kale.jpg') }}" alt="kales">
+        <h2>Kales</h2>
+        <p>Kales are a hardy and nutrient-dense leafy green that can be grown in containers, providing a continuous harvest of healthy leaves..</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant kale seeds or seedlings in a pot at least 8 inches deep, using a rich, well-draining potting mix mixed with a generous amount of composted manure. Kale prefers cooler temperatures and partial shade, especially in the afternoon. Keep the soil consistently moist, as dry conditions can make the leaves tough and bitter. Harvest the outer leaves first, and consider a top dressing of manure every month to maintain vigorous growth.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Spinach -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/spinach.jpg') }}" alt="spinach">
+        <h2>Spinach</h2>
+        <p>Spinach is a fast-growing, cool-weather crop perfect for container gardening, offering tender, edible leaves in a relatively short time..</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Sow spinach seeds in a wide, shallow container at least 6 inches deep, filled with a fertile potting mix enriched with composted manure. Spinach thrives in partial shade and cooler temperatures. Keep the soil consistently moist. You can harvest the leaves as needed, either by picking the outer leaves or cutting the whole plant. Replenish the soil with manure before each new planting.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Pepper -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/pepper.jpg') }}" alt="pepper">
+        <h2>Pepper</h2>
+        <p>Red peppers are a sun-loving plant that adds a pop of color and a sweet flavor to your cooking and can be very productive in a container garden.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Start red pepper seedlings in a pot at least 10 inches deep and wide, using a loamy potting mix fortified with composted manure. They require at least six to eight hours of full sun daily. Water regularly to keep the soil evenly moist. Use a small stake or cage for support. Mix more manure into the soil every four to six weeks to support fruit development.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+
+      <!-- Lemon Grass -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/lemon_grass.png') }}" alt="lemon grass">
+        <h2>Lemon Grass</h2>
+        <p>Lemongrass is an aromatic and easy-to-grow herb that adds a zesty, citrusy flavor to many dishes and thrives in a warm, sunny environment.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant a lemongrass stalk with roots in a large container at least 12 inches deep, using a rich potting mix combined with composted manure. Lemongrass loves heat and full sun. Water the plant regularly, keeping the soil moist but not soggy. You can harvest the outer stalks as needed. Top dress with manure monthly during the growing season as it is a heavy feeder.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+      <!-- Rosemary -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/rosemary.jpg') }}" alt="rosemary">
+        <h2>Rosemary</h2>
+        <p>Rosemary is a fragrant, drought-tolerant herb that's easy to grow in containers, providing a woody, pine-like flavor for a variety of culinary uses.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant rosemary in a pot with excellent drainage, using a sandy potting mix mixed with a small amount of composted manure. This Mediterranean herb loves full sun. Water sparingly, allowing the soil to dry out completely between waterings. Prune the plant to encourage bushy growth and harvest sprigs as needed. Rosemary does not require frequent additions of manure.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Lettuce -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/lettuce.jpg') }}" alt="lettuce">
+        <h2>Lettuce</h2>
+        <p>Lettuce is a fast-growing, space-efficient leafy green that is perfect for container gardening, offering a quick and continuous supply of fresh salad greens.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Sow lettuce seeds directly into a wide, shallow container at least 6 inches deep, using a loose, fertile potting mix enriched with composted manure. Lettuce prefers partial shade. Keep the soil consistently moist. You can harvest lettuce by picking the outer leaves or cutting the entire head. Replenish the soil with manure before re-sowing seeds every few weeks for a continuous supply.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Cucumber -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/cucumber.jpg') }}" alt="cucumber">
+        <h2>Cucumber</h2>
+        <p>Cucumbers are a productive vining plant that can be grown vertically in containers, yielding crisp, refreshing fruits with the right support.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant cucumber seeds or seedlings in a large pot, at least 12 to 14 inches deep, with a sturdy trellis or cage for support. They need at least six hours of full sun a day. Mix plenty of composted manure into the potting mix. Water deeply and consistently, especially when the plant is flowering and fruiting. Add more manure to the soil every two to three weeks to support vigorous growth.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Basil -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/basil.jpg') }}" alt="basil">
+        <h2>Basil</h2>
+        <p>Basil is a fragrant and fast-growing herb that is a staple in many cuisines and thrives in a sunny container garden</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant basil seeds or seedlings in a pot at least 8 inches deep, using a well-draining potting mix enriched with composted manure. Basil loves heat and sun. Water regularly to keep the soil evenly moist. Pinch off the tips of the plant to encourage bushy growth and prevent it from flowering. A monthly top dressing of manure will help keep the plant healthy and productive.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Coriander -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/corriander.jpg') }}" alt="corriander">
+        <h2>Coriander</h2>
+        <p>Coriander is a dual-purpose herb, providing both flavorful leaves and seeds, and is best grown in cooler temperatures in a container.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Sow coriander seeds directly into a pot at least 8 inches deep, using a light, well-draining potting mix enriched with composted manure. Coriander prefers cooler weather and can bolt in the heat, so it does best in partial sun. Keep the soil consistently moist. Harvest the outer leaves first, and you can let some plants go to seed to collect coriander seeds.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+      <!-- Mint -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/mint.jpg') }}" alt="mint">
+        <h2>Mint</h2>
+        <p>Mint is a highly aromatic and vigorous herb that is best grown in its own container to prevent it from taking over other plants.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant mint in a pot at least 10 inches deep, using a fertile potting mix combined with composted manure. Mint can tolerate a range of light conditions. Water frequently to keep the soil moist, as mint loves water. Harvest the leaves as needed, and prune the plant regularly to encourage new growth. A monthly application of manure will keep it thriving.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Eggplant -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/eggplant.jpg') }}" alt="eggplant">
+        <h2>Eggplant</h2>
+        <p>Eggplants are a beautiful and productive vegetable that thrives in containers, offering glossy, deep purple or white fruits.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Start eggplant seedlings in a large container, at least 12 to 14 inches deep, using a rich potting mix blended with composted manure. They need at least six to eight hours of direct sun daily. Water deeply and consistently. Use a stake or cage to support the plant. Mix more manure into the soil every two to three weeks once the plant starts flowering to promote fruiting.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      <!-- Spring Onions -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/onion.jpg') }}" alt="onion">
+        <h2>Spring Onions</h2>
+        <p>Spring onions are a simple and rewarding crop for container gardens, providing a mild onion flavor from both their green tops and small white bulbs.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant spring onion sets or seeds in a pot at least 6 to 8 inches deep, using a light potting mix combined with composted manure. They need at least four to six hours of full sun a day. Keep the soil evenly moist. You can harvest them by pulling the whole plant or by snipping off the green tops. A top dressing of manure can be applied a few weeks after planting.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      
+      <!-- Raddish -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/raddish.jpg') }}" alt="raddish">
+        <h2>Raddish</h2>
+        <p>Radishes are one of the quickest and easiest vegetables to grow in containers, yielding crisp, peppery roots in just a few weeks.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Sow radish seeds directly into a wide, shallow container at least 6 inches deep, filled with a loose potting mix enriched with composted manure. They need at least six hours of full sun a day. Keep the soil consistently moist to ensure the radishes grow quickly and stay tender. Harvest them when they reach the desired size.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+      
+      <!-- oregano -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/oregano.jpg') }}" alt="oregano">
+        <h2>Oregano</h2>
+        <p>Oregano is a flavorful and hardy perennial herb that is easy to grow in containers and provides a classic, warm flavor to your cooking.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Plant oregano in a pot with excellent drainage, using a sandy potting mix mixed with a small amount of composted manure. It thrives in full sun. Water sparingly, allowing the soil to dry out between waterings. Regular pruning encourages the plant to become bushier. Oregano generally does not need frequent applications of manure.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+
+      
+      <!-- bell pepper -->
+      <div class="guide-card">
+        <img src="{{ url_for('static', filename='images/bell_pepper.jpg') }}" alt="bell pepper">
+        <h2>Bell pepper</h2>
+        <p>Bell peppers are a colorful and delicious vegetable that can be very productive in a container garden, providing sweet, crisp fruits.</p>
+
+        <!-- Hidden full description -->
+        <div class="more-info hidden">
+          <p>Start bell pepper seedlings in a pot at least 10 inches deep and wide, using a well-draining, loamy potting mix enriched with composted manure. They require at least six to eight hours of full sun daily. Water regularly to keep the soil evenly moist. A small stake or cage can support the plant. Mix more manure into the soil every four to six weeks to support fruit development.</p>
+        </div>
+
+        <button class="read-more-btn">Read More</button>
+      </div>
+    </section>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Balcony2Farm. All rights reserved.</p>
+  </footer>
+
+
+</body>
+</html>

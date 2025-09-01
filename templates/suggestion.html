@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plant Suggestions</title>
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+   <!-- Navigation Bar -->
+<nav aria-label="Main Navigation">
+  <div class="logo">🌱 <span>Balcony2Farm</span></div>
+  <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false">☰</button>
+  <ul id="nav-links" class="nav-links">
+    <li><a href="{{ url_for('home') }}" aria-current="page">Home</a></li>
+    <li><a href="{{ url_for('register') }}">Start My Balcony Farm</a></li>
+    <li><a href="{{ url_for('buy') }}">Buy from us</a></li>
+    <li><a href="{{ url_for('guides') }}">Guides</a></li>
+  </ul>
+</nav>
+
+
+  
+<h1>🌱 Hello {{ name }}!</h1>
+<p>Here are your personalized balcony gardening suggestions:</p>
+
+<div class="product-grid">
+  {% for block in suggestions.split("###")[1:] %}  {# skip index 0 #}
+    {% if block.strip() %}
+      {% set lines = block.strip().split("\n", 1) %}
+      <div class="card">
+        <div class="card-content">
+          <h3>{{ lines[0] }}</h3>
+          <p>{{ lines[1] if lines|length > 1 else "" }}</p>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+
+  <a href="/">⬅️ Back to Form</a>
+
+    <!-- Footer -->
+  <footer>
+    <p>© 2025 Balcony2Farm | Hackathon Project 🌱</p>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </footer>
+</body>
+</html>

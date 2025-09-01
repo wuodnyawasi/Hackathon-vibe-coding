@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Successful - Balcony2Farm 🌱</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Skip to Content -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Navigation Bar -->
+  <nav aria-label="Main Navigation">
+    <div class="logo">🌱 <span>Balcony2Farm</span></div>
+    <button class="nav-toggle" aria-controls="nav-links" aria-expanded="false">☰</button>
+    <ul id="nav-links" class="nav-links">
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="{{ url_for('register') }}">Start My Balcony Farm</a></li>
+      <li><a href="{{ url_for('buy') }}">Buy from us</a></li>
+      <li><a href="{{ url_for('guides') }}">Guides</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" role="banner">
+    <h1>✅ Payment Successful!</h1>
+    <p>Thank you for your purchase 🌱</p>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" class="form-container">
+    <h1>🎉 Order Confirmed</h1>
+    <p>🧔🏾‍♂️👵🏾 Our team will contact you shortly to arrange deliveries.</p>
+    <p>
+      <a href="{{ url_for('home') }}" class="btn primary">🏠 Go back to Home</a>
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Balcony2Farm | Hackathon Project 🌱</p>
+  </footer>
+
+  <!-- JS for nav toggle -->
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+      toggle.setAttribute('aria-expanded', !expanded);
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
