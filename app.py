@@ -7,11 +7,7 @@ import stripe
 import json
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', 'test.env'))
-
-
-
-
-
+from urllib.parse import urlparse
 
 def format_suggestions_for_template(text: str) -> str:
     """
@@ -30,14 +26,67 @@ app = Flask(__name__)
 
 secret_key = "FLWSECK_TEST-75c66817fd1daa44adeca38a34102f55-X"
 app.secret_key = "a3f5b17a92e74c45d2e1f2f5c88b3d7a"
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 # Database connection config
+url = urlparse(DATABASE_URL)
 db_config = {
-    "host": "localhost",
-    "user": "root",
-    "password": "1234",   
-    "database": "balcony_plants"
+    "host": url.hostname,
+    "port": url.port,
+    "user": url.username,
+    "password": url.password,
+    "database": url.path[1:]  # remove leading /
 }
+
+def create_tables():
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS plants_data (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        phone VARCHAR(50),
+        name VARCHAR(255),
+        email VARCHAR(255),
+        balcony_type VARCHAR(100),
+        sunlight VARCHAR(50),
+        balconySize VARCHAR(50),
+        water VARCHAR(50),
+        soil VARCHAR(50),
+        season VARCHAR(50)
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS orders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    phone VARCHAR(20),
+    email VARCHAR(100),
+    tx_ref VARCHAR(100) UNIQUE,
+    total_amount DECIMAL(10,2),
+    payment_status VARCHAR(20) DEFAULT 'PENDING',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    product_name VARCHAR(100),
+    quantity INT,
+    price DECIMAL(10,2),
+    subtotal DECIMAL(10,2),
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+)
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close() 
+
+    create_tables()              
 
 
 
