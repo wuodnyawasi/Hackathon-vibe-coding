@@ -314,24 +314,15 @@ Current season: {season}
 """
 
         # ✅ Cohere Chat API request
-        prompt = f"""
-            You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions.
-            For each suggested plant include:
-            1. Materials needed (pots, buckets, soil, etc.)
-            2. How to plant it
-            3. How to care for it (watering, sunlight, pruning, fertilizer, manure)
-            4. How long until harvest
-            Format output clearly with ###plant name as headings example ###tomatoes and use emojis for clarity.
-
-User profile:
-{user_profile}
-"""
+        messages = [
+            {"role": "system", "content": "You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions. Include materials needed, planting instructions, care instructions, and harvest time. Format output clearly with ###plant name as headings and use emojis."},
+            {"role": "user", "content": user_profile}
+        ]
 
         response = client.chat(
-            model="command-xlarge-nightly",
-            message=prompt,
-            temperature=0.7,
-            max_tokens=1500
+            model="command-a-03-2025",
+            messages=messages,
+            temperature=0.7
         )
 
         raw_suggestions = response.output[0].content.strip()
@@ -344,3 +335,4 @@ User profile:
 
     except Exception as e:
         return f"❌ Error: {str(e)}"
+
