@@ -27,7 +27,7 @@ app = Flask(__name__)
 secret_key = "FLWSECK_TEST-75c66817fd1daa44adeca38a34102f55-X"
 app.secret_key = "a3f5b17a92e74c45d2e1f2f5c88b3d7a"
 DATABASE_URL = os.environ.get("DATABASE_URL")
-cohere_api_key = os.environ.get("cohere")
+cohere_api_key = os.environ.get("CO_API_KEY")
 client = cohere.Client(cohere_api_key)
 
 # Database connection config
@@ -112,7 +112,7 @@ def success():
     return "<h1> ✅ Payment successfull! Thank you for your purchase"
 @app.route("/cancel")
 def cancel():
-    return "<h1 ❌ payment cancelled. Please try again"
+    return "<h1>❌ Payment cancelled. Please try again</h1>"
 @app.route("/buy")
 def buy():
     
@@ -273,31 +273,9 @@ def payment_callback():
     else:
         return render_template("payment_failed.html")
 
-        
-from flask import Flask, request, render_template
-import mysql.connector
-import cohere
-
-app = Flask(__name__)
-
-# Initialize Cohere V2 client
-client = cohere.ClientV2("<YOUR_API_KEY>")  # Replace with your actual API key
-
-# Database config
-db_config = {
-    'host': 'your_host',
-    'user': 'your_user',
-    'password': 'your_password',
-    'database': 'your_database'
-}
-
-def format_suggestions_for_template(text: str) -> str:
-    # Your formatting function
-    return text  # Replace with your actual formatting logic
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    # Get form data
     phone = request.form.get("phone")
     name = request.form.get("name")
     email = request.form.get("email")
@@ -309,7 +287,7 @@ def submit():
     season = request.form.get("season")
 
     try:
-        # Save to database
+        # Save to DB
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
         query = """
@@ -334,7 +312,6 @@ Soil type: {soil}
 Current season: {season}
 """
 
-        # ✅ Cohere Chat API request
         prompt = f"""
 You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions.
 Include materials needed, planting instructions, care instructions, and harvest time.
@@ -344,18 +321,19 @@ User profile:
 {user_profile}
 """
 
+        # ✅ Corrected Cohere chat usage
         response = client.chat(
             model="command-a-03-2025",
-            message=prompt,
+            messages=[{"role": "user", "content": prompt}],
             temperature=0.7
         )
 
-        # Access response content properly in Cohere V2
-        raw_suggestions = response.content.strip()
+        # ✅ Adjust this based on actual response object
+        raw_suggestions = response.text.strip()
+
         if not raw_suggestions:
             raw_suggestions = "No suggestions were generated. Please try again."
 
-        # Format and return template
         suggestions = format_suggestions_for_template(raw_suggestions)
         return render_template("suggestion.html", name=name, suggestions=suggestions)
 
