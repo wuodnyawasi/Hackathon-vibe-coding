@@ -314,27 +314,21 @@ def submit():
         Current season: {season}
         """
 
-        # ✅ Cohere request
-        prompt = f"""
-You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions.
-For each suggested plant include:
-1. Materials needed (pots, buckets, soil, etc.)
-2. How to plant it
-3. How to care for it (watering, sunlight, pruning, fertilizer, manure)
-4. How long until harvest
-Format output clearly with ###plant name as headings example ###tomatoes and use emojis for clarity.
+        
+        # ✅ Cohere Chat API request
+        messages = [
+            {"role": "system", "content": "You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions. For each suggested plant include:\n1. Materials needed (pots, buckets, soil, etc.)\n2. How to plant it\n3. How to care for it (watering, sunlight, pruning, fertilizer, manure)\n4. How long until harvest\nFormat output clearly with ###plant name as headings example ###tomatoes and use emojis for clarity."},
+            {"role": "user", "content": user_profile}
+        ]
 
-User profile:
-{user_profile}
-"""
-        response = client.generate(
-            model='xlarge',       # or 'medium', 'small' depending on your plan
-            prompt=prompt,
-            max_tokens=500,
-            temperature=0.7
+        response = client.chat(
+            model="command-xlarge-nightly",
+            messages=messages,
+            temperature=0.7,
+            max_output_tokens=500
         )
 
-        raw_suggestions = response.text.strip()
+        raw_suggestions = response.output_text.strip()
         if not raw_suggestions:
             raw_suggestions = "No suggestions were generated. Please try again."
 
