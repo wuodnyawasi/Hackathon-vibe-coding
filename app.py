@@ -328,7 +328,7 @@ User profile:
             temperature=0.7
         )
 
-        raw_suggestions = response.output[0].content.strip()
+        raw_suggestions = response.message.content.strip()
         if not raw_suggestions:
             raw_suggestions = "No suggestions were generated. Please try again."
 
