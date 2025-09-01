@@ -60,35 +60,35 @@ def create_tables():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    phone VARCHAR(20),
-    email VARCHAR(100),
-    tx_ref VARCHAR(100) UNIQUE,
-    total_amount DECIMAL(10,2),
-    payment_status VARCHAR(20) DEFAULT 'PENDING',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        name VARCHAR(100),
+        phone VARCHAR(20),
+        email VARCHAR(100),
+        tx_ref VARCHAR(100) UNIQUE,
+        total_amount DECIMAL(10,2),
+        payment_status VARCHAR(20) DEFAULT 'PENDING',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     """)
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS order_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    product_name VARCHAR(100),
-    quantity INT,
-    price DECIMAL(10,2),
-    subtotal DECIMAL(10,2),
-    FOREIGN KEY (order_id) REFERENCES orders(id)
-)
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_id INT,
+        product_name VARCHAR(100),
+        quantity INT,
+        price DECIMAL(10,2),
+        subtotal DECIMAL(10,2),
+        FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    )
     """)
 
     conn.commit()
     cursor.close()
-    conn.close() 
-
-    create_tables()              
+    conn.close()
 
 
+# ✅ call create table
+create_tables()
 
 @app.route("/")
 def home():
