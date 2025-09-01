@@ -321,12 +321,12 @@ User profile:
 {user_profile}
 """
 
-        # ✅ Corrected Cohere chat usage
         response = client.chat(
             model="command-a-03-2025",
-            messages=[{"role": "user", "content": prompt}],
+            message=prompt,
             temperature=0.7
         )
+
 
         # ✅ Adjust this based on actual response object
         raw_suggestions = response.text.strip()
