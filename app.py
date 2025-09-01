@@ -274,6 +274,27 @@ def payment_callback():
         return render_template("payment_failed.html")
 
         
+from flask import Flask, request, render_template
+import mysql.connector
+import cohere
+
+app = Flask(__name__)
+
+# Initialize Cohere V2 client
+client = cohere.ClientV2("<YOUR_API_KEY>")  # Replace with your actual API key
+
+# Database config
+db_config = {
+    'host': 'your_host',
+    'user': 'your_user',
+    'password': 'your_password',
+    'database': 'your_database'
+}
+
+def format_suggestions_for_template(text: str) -> str:
+    # Your formatting function
+    return text  # Replace with your actual formatting logic
+
 @app.route("/submit", methods=["POST"])
 def submit():
     # Get form data
@@ -312,7 +333,8 @@ Water available: {water}
 Soil type: {soil}
 Current season: {season}
 """
-    try:
+
+        # ✅ Cohere Chat API request
         prompt = f"""
 You are an expert balcony gardening assistant. Suggest edible plants based on the user's conditions.
 Include materials needed, planting instructions, care instructions, and harvest time.
@@ -321,16 +343,19 @@ Format output clearly with ###plant name as headings and use emojis.
 User profile:
 {user_profile}
 """
+
         response = client.chat(
             model="command-a-03-2025",
             message=prompt,
             temperature=0.7
         )
 
+        # Access response content properly in Cohere V2
         raw_suggestions = response.content.strip()
         if not raw_suggestions:
             raw_suggestions = "No suggestions were generated. Please try again."
 
+        # Format and return template
         suggestions = format_suggestions_for_template(raw_suggestions)
         return render_template("suggestion.html", name=name, suggestions=suggestions)
 
