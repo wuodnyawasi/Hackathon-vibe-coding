@@ -331,7 +331,7 @@ User profile:
             model="command-xlarge-nightly",
             message=prompt,
             temperature=0.7,
-            max_output_tokens=500
+            max_tokens=1500
         )
 
         raw_suggestions = response.output_text.strip()
