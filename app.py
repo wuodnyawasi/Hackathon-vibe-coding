@@ -324,7 +324,7 @@ User profile:
 
         response = client.chat(
             model="command-a-03-2025",
-            messages=prompt,
+            message=prompt,
             temperature=0.7
         )
 
