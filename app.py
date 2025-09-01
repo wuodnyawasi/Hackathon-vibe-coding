@@ -334,7 +334,7 @@ User profile:
             max_tokens=1500
         )
 
-        raw_suggestions = response.message.content.strip()
+        raw_suggestions = response.output[0].content.strip()
         if not raw_suggestions:
             raw_suggestions = "No suggestions were generated. Please try again."
 
